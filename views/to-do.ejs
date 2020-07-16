@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+<br>
+<h1 style="text-align: center;">To-List</h1>
+<div class="container">
+  <label style="margin-left:20px; ;">Type in your activity :</label>
+    <form class="form-inline">
+      <div class="form-group mx-sm-3 mb-2">
+        <input id="task-adder" type="text" class="form-control" id="inputPassword2" placeholder="type here...">
+      </div>
+    </form>
+  </div>
+  <br>
+  <br>
+  <br>
+<div class="container" style="text-align: center;">
+    <div class="row">
+      <div class="col">
+        <ul class="list-group" id="today">
+            <li class="list-group-item disabled" aria-disabled="true">TODAY </li><button onclick="addToday(event)" type="button" class="btn btn-info" id="btn-today">+</button>
+            
+          </ul>
+          
+      </div>
+      <div class="col">
+          <ul class="list-group" id="tomorrow">
+        <li class="list-group-item disabled" aria-disabled="true">TOMORROW </li> <button onclick=addTomorrow(); type="button" class="btn btn-info" id="btn-tomorrow">+</button>
+        
+      </ul>
+     
+      </div>
+      <div class="col">
+          <ul class="list-group" id="upcoming">
+        <li class="list-group-item disabled" aria-disabled="true">UPCOMING</li><button onclick=addUpcoming(); type="button" class="btn btn-info" id="btn-upcoming">+</button>
+        
+      </ul>
+       
+      </div>
+    </div>
+  </div>
+  <script src="/js/to-do.js"></script>
+  <%- include('partials/footer') %>

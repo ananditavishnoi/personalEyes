@@ -1,0 +1,94 @@
+<%- include ('./partials/header') %>
+
+    <link rel="stylesheet" href="/css/pomodoro.css">
+    <link href="/js/pomodoro.js">
+    <title>Pomodoro</title>
+    <div class="container">
+        <h1 class="text-center my-5">Pomodoro</h1>
+    </div>
+
+    <!-- Main timer -->
+
+    <body onload="load()">
+        <div class="container timer">
+            <div class="row">
+                <div class="col-5">
+                    <h4 id="minutes"></h4>
+                </div>
+                <div class="col-2">
+                    <h4> : </h4>
+                </div>
+                <div class="col-5">
+                    <h4 id="seconds"> </h4>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4 id="done" class="text-center my-5"></h4>
+        </div>
+        <div class="container d-flex justify-content-center justify-content-evenly align-items-center my-5">
+            <i class="fas fa-play fa-2x" onclick="play()"></i>
+            <i class="fas fa-redo fa-2x" onclick="restart()"></i>
+            <i class="fas fa-pause fa-2x" onclick="pause()"></i>
+        </div>
+
+        <script>
+            var seconds = 10; // TODO : 1500 secs
+            var started = 0;
+            var secondsInterval = null;
+
+            function load() {
+                setMins(seconds);
+                setSecs(seconds);
+            }
+
+            function play() {
+                started++;
+                if (started == 1)
+                    secondsInterval = setInterval(intervalS, 1000);
+            }
+
+            function intervalS() {
+                seconds--;
+                setMins(seconds);
+                setSecs(seconds);
+                if (seconds <= 0) {
+                    clearInterval(secondsInterval);
+                    started = 0;
+                    seconds = 10;
+                    var audio = new Audio('/end_audio.mp3');
+                    audio.play();
+                    document.getElementById("done").innerHTML = "Session completed. Take a break, you deserve it!";
+                    document.getElementById("done").classList.add("msg");
+                }
+            }
+
+            function pause() {
+                clearInterval(secondsInterval);
+                started = 0;
+            }
+
+            function restart() {
+                pause();
+                seconds = 10;
+                setMins(seconds);
+                setSecs(seconds);
+            }
+
+            function setSecs(seconds) {
+                var secs = Math.floor(seconds % 60);
+                if (secs >= 10)
+                    document.getElementById("seconds").innerHTML = secs;
+                else
+                    document.getElementById("seconds").innerHTML = "0" + secs;
+            }
+
+            function setMins(seconds) {
+                var mins = Math.floor(seconds / 60);
+                if (mins >= 10)
+                    document.getElementById("minutes").innerHTML = mins;
+                else
+                    document.getElementById("minutes").innerHTML = "0" + mins;
+            }
+        </script>
+        <%- include('./partials/footer') %>
